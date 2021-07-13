@@ -1,6 +1,7 @@
 package chess;
 
 import boardgame.Board;//para importa ctrt + shift + o =D
+import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
@@ -26,6 +27,33 @@ public class ChessMatch {
 			}
 		}
 		return mat; //retorna a matriz mat
+	}
+	
+	//Método para orientar as peças depois do primeiro movimento
+	public ChessPiece performChessMove(ChessPosition sourcePosition , ChessPosition targetPosition) {
+		Position source = sourcePosition.toPosition();
+		Position target = targetPosition.toPosition();
+		validateSourcePosition(source);//essa é validação do source
+		Piece capturedPiece = makeMove(source, target);//makeMove é uma operação
+		return (ChessPiece)capturedPiece;
+	}
+	
+	//criar uma operação makeMove()!
+	private Piece makeMove(Position source, Position target) {
+		Piece p = board.removePiece(source);
+		Piece capturedPiece = board.removePiece(target);
+		board.placePiece( p, target);
+		return capturedPiece;
+	}
+	
+	
+	//implementar a validateSourcePosition!
+	private void validateSourcePosition(Position position) {
+		if(!board.thereIsAPiece(position)) {
+			throw new ChessException("There is no piece on source position!! ");
+						
+		}
+		
 	}
 	
 	//Criar um método para localizar as coordenadas

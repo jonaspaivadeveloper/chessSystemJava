@@ -67,6 +67,25 @@ public class Board {
 		piece.position = position;
 	}
 	
+	//Método para mover as peças!
+	public Piece removePiece(Position position) {//"Retonando Piece e sse metodo se chama removePiece com argumento postion"
+		if(!positionExists(position)) {
+			throw new BoardException("Position not on thre board!");
+		}
+		if (piece(position) == null) {
+			return null;
+		}
+		
+		//retirar a peça do tabuleiro
+		Piece aux = piece(position);
+		aux.position = null;
+		pieces[position.getRow()][position.getColumn()] = null;
+		return aux;
+		//Assim uma peça escolhida não pode ser escolhida novamente!
+	}
+	
+	
+	
 	//uma funçao auxiliar da função abaixo
 	public boolean positionExists(int row, int column) {
 		return row >= 0 && row < rows && column >= 0 && column < columns;

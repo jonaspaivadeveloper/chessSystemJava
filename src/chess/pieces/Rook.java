@@ -19,7 +19,12 @@ public class Rook extends ChessPiece {
 		 //Converter uma torre para uma string!!!!
 		 return "R";
 	 }
-	
+	 
+	 @Override
+		public boolean[][] possibleMove() {
+			boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+			return mat;
+	 }
 	
 
 }

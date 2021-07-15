@@ -2,6 +2,7 @@ package chess;
 
 import boardgame.Board;
 import boardgame.Piece;
+import boardgame.Position;
 
 public abstract class ChessPiece extends Piece {
 	
@@ -18,8 +19,10 @@ public abstract class ChessPiece extends Piece {
 		return color;
 	}
 	
-	
-	
-	
-
+	//Essa operação será reaproveitada!
+	//e também para detectar uma peça adversária
+	protected boolean isThereOpponentPiece(Position position) {//o uso do protected é porque esse método é usada nessa classe e sues subclasses!
+		ChessPiece p = (ChessPiece)getBoard().piece(position);//criar uma variável p
+		return p != null && p.getColor() != color;
+	}
 }

@@ -1,6 +1,7 @@
 package chess.pieces;
 
 import boardgame.Board;
+import boardgame.Position;
 import chess.ChessPiece;
 import chess.Color;
 
@@ -14,10 +15,78 @@ public class King extends ChessPiece {
 	public String toString() {
 		return "K";
 	}
+	
+	//Vamos elaborar um método auxiliar para ajudar as possiveis posições
+	private boolean canMove(Position position) {
+		ChessPiece p = (ChessPiece)getBoard().piece(position);//Pegar a peça da posição
+		//verificar se posição não é nula e não é peça adversária
+		return p == null || p.getColor() != getColor();	
+	}
 
 	@Override
 	public boolean[][] possibleMove() {
 		boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+		//possíveis movimentos do rei 
+		Position p = new Position(0, 0);
+		
+		//above
+		p.setValues(position.getRow() - 1, position.getColumn());//defeinir a posição pelo setValues
+		//testar
+		if(getBoard().positionExists(p) && canMove(p)) {
+			mat[p.getRow()][p.getColumn()] = true;		
+		}
+		
+		//above
+		p.setValues(position.getRow() + 1, position.getColumn());//defeinir a posição pelo setValues
+		//testar
+		if(getBoard().positionExists(p) && canMove(p)) {
+		mat[p.getRow()][p.getColumn()] = true;		
+		}
+		
+		//left
+		p.setValues(position.getRow(), position.getColumn() - 1);//defeinir a posição pelo setValues
+		//testar
+		if(getBoard().positionExists(p) && canMove(p)) {
+		mat[p.getRow()][p.getColumn()] = true;		
+		}
+		
+		//right
+		p.setValues(position.getRow(), position.getColumn() + 1);//defeinir a posição pelo setValues
+		//testar
+		if(getBoard().positionExists(p) && canMove(p)) {
+		mat[p.getRow()][p.getColumn()] = true;		
+		}
+		
+		//nw
+		p.setValues(position.getRow() - 1, position.getColumn() - 1);//defeinir a posição pelo setValues
+		//testar
+		if(getBoard().positionExists(p) && canMove(p)) {
+		mat[p.getRow()][p.getColumn()] = true;		
+		}
+		
+		//ne
+		p.setValues(position.getRow() - 1, position.getColumn() + 1);//defeinir a posição pelo setValues
+		//testar
+		if(getBoard().positionExists(p) && canMove(p)) {
+		mat[p.getRow()][p.getColumn()] = true;		
+		}
+		
+		//sw
+		p.setValues(position.getRow() + 1, position.getColumn() - 1);//defeinir a posição pelo setValues
+		//testar
+		if(getBoard().positionExists(p) && canMove(p)) {
+		mat[p.getRow()][p.getColumn()] = true;		
+		}
+		
+		//se
+		p.setValues(position.getRow() + 1, position.getColumn() + 1);//defeinir a posição pelo setValues
+		//testar
+		if(getBoard().positionExists(p) && canMove(p)) {
+		mat[p.getRow()][p.getColumn()] = true;		
+		}
+		
+		
+		
 		return mat;
 	}
 

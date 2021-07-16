@@ -38,7 +38,7 @@ public class UI {
 	//Método para ler a posição do usuário!
 	public static ChessPosition readChessPosition(Scanner sc) {
 		try {
-			String s = sc.nextLine();
+			String s = sc.nextLine();	
 			char column = s.charAt(0);
 			int row = Integer.parseInt(s.substring(1));
 			return new ChessPosition(column, row);

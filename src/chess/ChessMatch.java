@@ -41,7 +41,7 @@ public class ChessMatch {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
 		validateSourcePosition(source);//essa é validação do source
-		validateTargetPositionSource(source, target);//essa é validação do destino!
+		validateTargetPosition(source, target);//essa é validação do destino!
 		Piece capturedPiece = makeMove(source, target);//makeMove é uma operação
 		return (ChessPiece)capturedPiece;
 	}

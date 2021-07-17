@@ -23,7 +23,8 @@ public class Program {
 		while(true) {
 			try {
 				UI.clearScreen();
-				UI.printBoard(chessMatch.getPieces()); //onde printBoard é um método
+				//UI.printBoard(chessMatch.getPieces()); //onde printBoard é um método//MUDAMOS
+				UI.printMatch(chessMatch);
 				System.out.println();
 				System.out.print("Source: ");
 				ChessPosition source = UI.readChessPosition(sc);

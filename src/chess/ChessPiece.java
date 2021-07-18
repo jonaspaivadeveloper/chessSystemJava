@@ -19,6 +19,10 @@ public abstract class ChessPiece extends Piece {
 		return color;
 	}
 	
+	public ChessPosition getChessPosition() {
+		return ChessPosition.fromPosition(position);
+	}
+	
 	//Essa operação será reaproveitada!
 	//e também para detectar uma peça adversária
 	protected boolean isThereOpponentPiece(Position position) {//o uso do protected é porque esse método é usada nessa classe e sues subclasses!

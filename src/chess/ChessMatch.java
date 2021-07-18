@@ -2,6 +2,7 @@ package chess;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import boardgame.Board;//para importa ctrt + shift + o =D
 import boardgame.Piece;
@@ -16,11 +17,12 @@ public class ChessMatch {
 	private int turn;
 	private Color currentPlayer;
 	private Board board;
+	private boolean check;
+	
 	
 	//declarar as duas listas 
 	private List<Piece> piecesOnTheBoard = new ArrayList<>();
 	private List<Piece> capturedPieces = new ArrayList<>();
-	
 	
 	//construtor padrão
 	public ChessMatch() {
@@ -37,6 +39,10 @@ public class ChessMatch {
 	
 	public Color getCurrentPlayer() {
 		return currentPlayer;
+	}
+	
+	public boolean getCheck() {
+		return check;
 	}
 	
 	//o método vai criar uma mariz referente a classe ChessMatch
@@ -64,6 +70,15 @@ public class ChessMatch {
 		validateSourcePosition(source);//essa é validação do source
 		validateTargetPosition(source, target);//essa é validação do destino!
 		Piece capturedPiece = makeMove(source, target);//makeMove é uma operação
+		
+		//não colocar o proprio jogador em xeque
+		if(testCheck(currentPlayer)) {
+			undoMove(source, target, capturedPiece);
+			throw new ChessException("You cant put yourself in check!");
+		}
+		
+		check = (testCheck(opponent(currentPlayer))) ? true : false;
+		
 		nextTurn();
 		return (ChessPiece)capturedPiece;
 	}
@@ -79,6 +94,18 @@ public class ChessMatch {
 			capturedPieces.add(capturedPiece);
 		}
 		return capturedPiece;
+	}
+	
+	//desfazer o movimento da peça
+	private void undoMove(Position source, Position target, Piece capturedPiece) {
+		Piece p = board.removePiece(target);
+		board.placePiece(p, source);
+		
+		if(capturedPiece != null) {
+			board.placePiece(capturedPiece, target);
+			capturedPieces.remove(capturedPiece);
+			piecesOnTheBoard.add(capturedPiece);
+		}
 	}
 	
 	
@@ -102,18 +129,45 @@ public class ChessMatch {
 		}
 	}
 	
-	//Criar um método para localizar as coordenadas
-	private void placeNewPiece(char column, int row, ChessPiece piece) {
-		board.placePiece(piece, new ChessPosition(column, row).toPosition());
-		piecesOnTheBoard.add(piece);
-	}
-	
 	private void nextTurn() {
 		turn++;
 		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;//escolha do jogador adversário!
 		//: difere e ? mantem
 	}
 	
+	private Color opponent(Color color) {
+		return (color == Color.WHITE) ?  Color.BLACK : Color.WHITE;
+	}
+	
+	private ChessPiece king(Color color) {
+		List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
+		for (Piece p : list) {
+			if(p instanceof King) {
+				return (ChessPiece)p;
+			}
+		}
+		throw new IllegalStateException("There is no " + color + "king on the board");
+	}
+	
+	//testar a peça do rei sem estar em perigo
+	private boolean testCheck (Color color ) {
+		Position kingPosition = king(color).getChessPosition().toPosition();//pegando a posição do rei
+		List<Piece> opponentPieces = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == opponent(color)).collect(Collectors.toList());
+		for(Piece p : opponentPieces) {
+			boolean [][] mat = p.possibleMove();
+			if(mat[kingPosition.getRow()][kingPosition.getColumn()]) {
+				return true;
+			}
+		}
+		return false;	
+	}
+	
+	
+	//Criar um método para localizar as coordenadas
+	private void placeNewPiece(char column, int row, ChessPiece piece) {
+		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+		piecesOnTheBoard.add(piece);
+	}
 	//Criar um método para iniciar uma partida!
 	private void initialSetup() {
 		/*board.placePiece(new Rook(board, Color.WHITE), new Position(2, 1)); 

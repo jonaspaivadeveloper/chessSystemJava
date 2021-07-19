@@ -17,17 +17,17 @@ public abstract class Piece {
 	}
 	
 	//Definir as operações possiveis! com métod astract
-	public abstract boolean [][] possibleMove();
+	public abstract boolean [][] possibleMoves();
 	
 	//Se é possível mover a peça
 	public boolean possibleMove(Position position) {
-		return possibleMove()[position.getRow()][position.getColumn()];
+		return possibleMoves()[position.getRow()][position.getColumn()];
 	//aqui observamos que existe um método abstract e dentro há um metdo concreto!	
 	}
 	
 	//Método para detectificar se a peça pode se mover
 	public boolean isThereAnyPossibleMove() {
-		boolean[][] mat = possibleMove();//Uma variável auxiliar chamada mat!
+		boolean[][] mat = possibleMoves();//Uma variável auxiliar chamada mat!
 		for(int i = 0; i < mat.length; i++) {
 			for (int j = 0; j < mat.length; j++) {
 				if(mat[i][j]) {

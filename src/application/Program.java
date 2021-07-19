@@ -25,7 +25,7 @@ public class Program {
 		
 		
 		//Vamos fazer uma função para imprimir as peças
-		while(true) {
+		while(!chessMatch.getCheckMate()) {
 			try {
 				UI.clearScreen();
 				//UI.printBoard(chessMatch.getPieces()); //onde printBoard é um método//MUDAMOS
@@ -57,6 +57,8 @@ public class Program {
 				System.out.println(e.getMessage());
 				sc.nextLine();
 			}
-		}		
+		}	
+		UI.clearScreen();
+		UI.printMatch(chessMatch, captured);
 	}
 }//fim do Program

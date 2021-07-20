@@ -24,7 +24,7 @@ public class UI {
 	public static final String ANSI_CYAN = "\u001B[36m";
 	public static final String ANSI_WHITE = "\u001B[37m";
 
-	public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+	public static final String ANSI_BLACK_BACKGROUND ="\u001B[40m";
 	public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
 	public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
 	public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
@@ -55,7 +55,7 @@ public class UI {
 	public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
 		printBoard(chessMatch.getPieces());
 		System.out.println();
-		printCapturedPieces(captured);
+		printCapturedPiece(captured); 
 		System.out.println();
 		System.out.println("Turn: " + chessMatch.getTurn());
 		if(!chessMatch.getCheckMate()) {
@@ -126,7 +126,7 @@ public class UI {
 	}
 	
 	//criar um método para imprimir as peças capturadas
-	private static void printCapturedPieces(List<ChessPiece> captured) {
+	private static void printCapturedPiece(List<ChessPiece> captured) {
 		//Lista para informar as peças capturadas
 		
 		List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE).collect(Collectors.toList());

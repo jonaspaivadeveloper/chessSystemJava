@@ -9,6 +9,7 @@ public abstract class ChessPiece extends Piece {
 	
 	private Color color;
 	//o programa pede um consultor(importar),mas usaremos um construtor.
+	private int moveCount;//atributo é im intiero
 	
 	public ChessPiece(Board board, Color color) {
 		super(board);
@@ -18,6 +19,19 @@ public abstract class ChessPiece extends Piece {
 	//Nesse caso queremos só que a cor seja acessada e não modificada.
 	public Color getColor() {
 		return color;
+	}
+	
+	//getter do moveCount
+	public int getMoveCount() {
+		return moveCount;
+	}
+	
+	public void increaseMoveCount() {
+		moveCount++;
+	}
+	
+	public void decreaseMoveCount() {
+		moveCount--;
 	}
 	
 	public ChessPosition getChessPosition() {

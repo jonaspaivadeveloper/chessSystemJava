@@ -6,10 +6,10 @@ import chess.ChessPiece;
 import chess.Color;
 
 //Peça Torre
-public class Rook extends ChessPiece {
+public class Queen extends ChessPiece {
 	
 	//Construtor automatizado pelo java
-	public Rook(Board board, Color color) {
+	public Queen(Board board, Color color) {
 		super(board, color);
 		
 	}
@@ -18,7 +18,7 @@ public class Rook extends ChessPiece {
 	 @Override
 	 public String toString() {
 		 //Converter uma torre para uma string!!!!
-		 return "R";
+		 return "Q";
 	 }
 	 
 	 @Override
@@ -73,8 +73,50 @@ public class Rook extends ChessPiece {
 				mat[p.getRow()][p.getColumn()] = true;
 			}
 			
+			//nw
+			p.setValues(position.getRow() - 1, position.getColumn() - 1);
+			while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;//preenchendo o espaça vazio
+				p.setValues(p.getRow() - 1, p.getColumn() - 1);
+			}
+			//se tiver peça adversária
+			if(getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+				
+			//ne
+			p.setValues(position.getRow() - 1, position.getColumn() + 1);
+			while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;//preenchendo o espaça vazio
+				p.setValues(p.getRow() - 1, p.getColumn() + 1);
+			}
+			//se tiver peça adversária
+			if(getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+			
+			//se
+			p.setValues(position.getRow() + 1, position.getColumn() + 1);
+			while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;//preenchendo o espaça vazio
+				p.setValues(p.getRow() + 1, p.getColumn() + 1);
+			}
+			//se tiver peça adversária
+			if(getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+			
+			//sw
+			p.setValues(position.getRow() + 1, position.getColumn() - 1);
+			while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;//preenchendo o espaça vazio
+				p.setValues(p.getRow() + 1,p.getColumn() - 1);
+			}
+			//se tiver peça adversária
+			if(getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+			
 			return mat;
 	 }
-	
-
 }
